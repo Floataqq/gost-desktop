@@ -1945,6 +1945,40 @@ requirementToContactEmpty#50a9839 = RequirementToContact;
 requirementToContactPremium#e581e4e9 = RequirementToContact;
 requirementToContactPaidMessages#b4f67e93 stars_amount:long = RequirementToContact;
 
+// SECRET CHAT STUFF
+
+decryptedMessage#91cc4674 flags:# no_webpage:flags.1?true silent:flags.5?true random_id:long ttl:int message:string media:flags.9?DecryptedMessageMedia entities:flags.7?Vector<MessageEntity> via_bot_name:flags.11?string reply_to_random_id:flags.3?long grouped_id:flags.17?long = DecryptedMessage;
+decryptedMessageService#73164160 random_id:long action:DecryptedMessageAction = DecryptedMessage;
+
+decryptedMessageMediaEmpty#89f5c4a = DecryptedMessageMedia;
+decryptedMessageMediaPhoto#f1fa8d78 thumb:bytes thumb_w:int thumb_h:int w:int h:int size:int key:bytes iv:bytes caption:string = DecryptedMessageMedia;
+decryptedMessageMediaVideo#970c8c0e thumb:bytes thumb_w:int thumb_h:int duration:int mime_type:string w:int h:int size:int key:bytes iv:bytes caption:string = DecryptedMessageMedia;
+decryptedMessageMediaGeoPoint#35480a59 lat:double long:double = DecryptedMessageMedia;
+decryptedMessageMediaContact#588a0a97 phone_number:string first_name:string last_name:string user_id:int = DecryptedMessageMedia;
+decryptedMessageMediaDocument#6abd9782 thumb:bytes thumb_w:int thumb_h:int mime_type:string size:long key:bytes iv:bytes attributes:Vector<DocumentAttribute> caption:string = DecryptedMessageMedia;
+decryptedMessageMediaAudio#57e0a9cb duration:int mime_type:string size:int key:bytes iv:bytes = DecryptedMessageMedia;
+decryptedMessageMediaVenue#8a0df56f lat:double long:double title:string address:string provider:string venue_id:string = DecryptedMessageMedia;
+decryptedMessageMediaWebPage#e50511d8 url:string = DecryptedMessageMedia;
+ 
+decryptedMessageActionSetMessageTTL#a1733aec ttl_seconds:int = DecryptedMessageAction;
+decryptedMessageActionReadMessages#c4f40be random_ids:Vector<long> = DecryptedMessageAction;
+decryptedMessageActionDeleteMessages#65614304 random_ids:Vector<long> = DecryptedMessageAction;
+decryptedMessageActionScreenshotMessages#8ac1f475 random_ids:Vector<long> = DecryptedMessageAction;
+decryptedMessageActionFlushHistory#6719e45c = DecryptedMessageAction;
+ 
+decryptedMessageLayer#1be31789 random_bytes:bytes layer:int in_seq_no:int out_seq_no:int message:DecryptedMessage = DecryptedMessageLayer;
+decryptedMessageActionResend#511110b0 start_seq_no:int end_seq_no:int = DecryptedMessageAction;
+decryptedMessageActionNotifyLayer#f3048883 layer:int = DecryptedMessageAction;
+decryptedMessageActionTyping#ccb27641 action:SendMessageAction = DecryptedMessageAction;
+
+decryptedMessageActionRequestKey#f3c9611b exchange_id:long g_a:bytes = DecryptedMessageAction;
+decryptedMessageActionAcceptKey#6fe1735b exchange_id:long g_b:bytes key_fingerprint:long = DecryptedMessageAction;
+decryptedMessageActionAbortKey#dd05ec6b exchange_id:long = DecryptedMessageAction;
+decryptedMessageActionCommitKey#ec2e0b9b exchange_id:long key_fingerprint:long = DecryptedMessageAction;
+decryptedMessageActionNoop#a82fdd63 = DecryptedMessageAction;
+
+// END SECRET CHAT STUFF
+
 ---functions---
 
 invokeAfterMsg#cb9f372d {X:Type} msg_id:long query:!X = X;

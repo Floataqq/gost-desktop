@@ -73,6 +73,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include <QtGui/QGuiApplication>
 #include <QtGui/QClipboard>
 
+#include <iostream>
+
 namespace Window {
 namespace {
 
@@ -744,6 +746,14 @@ void MainMenu::setupMenu() {
 		_menu->add(
 			object_ptr<Ui::PlainShadow>(_menu),
 			{ 0, st::mainMenuSkip, 0, st::mainMenuSkip });
+
+    addAction(
+      tr::lng_create_secret_chat_title(),
+      { &st::menuIconUserShow }
+    )->setClickedCallback([=] {
+      std::cout << "Opening contact chooser panel..." << std::endl;
+      controller->show(PrepareSecretChatBox(controller));
+    });
 
 		AddMyChannelsBox(addAction(
 			tr::lng_create_group_title(),

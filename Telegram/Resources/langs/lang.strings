@@ -1934,6 +1934,18 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_create_group_create" = "Create";
 "lng_create_group_title" = "New Group";
 "lng_create_channel_title" = "New Channel";
+
+
+"lng_create_secret_chat_title" = "New Secret chat";
+"lng_create_secret_chat_with" = "Create Secret chat with...";
+"lng_secret_chat_single_invitation" = "A new secret chat invitation is waiting.";
+"lng_secret_chat_many_invitations" = "A few new secret chat invitations are waiting.";
+"lng_cipher_aes" = "AES";
+"lng_cipher_kuznechik" = "Kuznechik";
+"lng_secret_chat_fallback" = "Your peer does not seem to support Kuznechik. What shall i do?";
+"lng_secret_chat_fallback_yes" = "Switch to AES";
+"lng_secret_chat_fallback_no" = "Delete this chat";
+
 "lng_create_public_channel_title" = "Public Channel";
 "lng_create_public_channel_about" = "Anyone can find the channel in search and join";
 "lng_create_private_channel_title" = "Private Channel";

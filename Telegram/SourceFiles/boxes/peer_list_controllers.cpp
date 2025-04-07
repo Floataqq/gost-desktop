@@ -59,6 +59,55 @@ constexpr auto kSearchPerPage = 50;
 
 } // namespace
 
+object_ptr<Ui::BoxContent> PrepareSecretChatBox(
+ 		not_null<Window::SessionController*> sessionController) {
+
+	using Mode = ContactsBoxController::SortMode;
+
+  class Controller final : public ContactsBoxController {
+	public:
+		using ContactsBoxController::ContactsBoxController;
+  
+  protected:
+		std::unique_ptr<PeerListRow> createRow(
+				not_null<UserData*> user) override {
+			return !user->isSelf()
+				? ContactsBoxController::createRow(user)
+				: nullptr;
+		}
+  };
+
+  auto controller = std::make_unique<Controller>(
+		&sessionController->session());
+	controller->setStyleOverrides(&st::contactsWithStories);
+	controller->setStoriesShown(true);
+	const auto raw = controller.get();
+
+ 	auto init = [=](not_null<PeerListBox*> box) {
+    struct State {
+			QPointer<::Ui::IconButton> toggleSort;
+			rpl::variable<Mode> mode = Mode::Online;
+			::Ui::Animations::Simple scrollAnimation;
+		};
+
+		const auto state = box->lifetime().make_state<State>();
+    box->setTitle(tr::lng_create_secret_chat_with());
+		box->addButton(tr::lng_close(), [=] { box->closeBox(); });
+		state->toggleSort = box->addTopButton(st::contactsSortButton, [=] {
+			const auto online = (state->mode.current() == Mode::Online);
+			const auto mode = online ? Mode::Alphabet : Mode::Online;
+			state->mode = mode;
+			raw->setSortMode(mode);
+			state->toggleSort->setIconOverride(
+				online ? &st::contactsSortOnlineIcon : nullptr,
+				online ? &st::contactsSortOnlineIconOver : nullptr);
+		});
+		raw->setSortMode(Mode::Online);
+	};
+
+	return Box<PeerListBox>(std::move(controller), std::move(init));
+}
+
 object_ptr<Ui::BoxContent> PrepareContactsBox(
 		not_null<Window::SessionController*> sessionController) {
 	using Mode = ContactsBoxController::SortMode;
