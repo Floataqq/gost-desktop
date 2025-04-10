@@ -747,10 +747,10 @@ void MainMenu::setupMenu() {
 			object_ptr<Ui::PlainShadow>(_menu),
 			{ 0, st::mainMenuSkip, 0, st::mainMenuSkip });
 
-    addAction(
+    AddMyChannelsBox(addAction(
       tr::lng_create_secret_chat_title(),
       { &st::menuIconUserShow }
-    )->setClickedCallback([=] {
+    ), controller, true)->setClickedCallback([=] {
       std::cout << "Opening contact chooser panel..." << std::endl;
       controller->show(PrepareSecretChatBox(controller));
     });

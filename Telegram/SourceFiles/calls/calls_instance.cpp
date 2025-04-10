@@ -36,8 +36,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "mtproto/mtproto_config.h"
 #include "boxes/abstract_box.h" // Ui::show().
 
+#include <ostream>
 #include <tgcalls/VideoCaptureInterface.h>
 #include <tgcalls/StaticThreads.h>
+#include <iostream>
 
 namespace Calls {
 namespace {
@@ -409,6 +411,22 @@ void Instance::createGroupCall(
 	_currentGroupCallChanges.fire_copy(raw);
 }
 
+void Instance::refreshDhConfigWithoutCall(
+    not_null<Main::Session*> session) {
+
+  session->api().request(MTPmessages_GetDhConfig(
+		MTP_int(_cachedDhConfig->version),
+		MTP_int(MTP::ModExpFirst::kRandomPowerSize)
+	)).done([=](const MTPmessages_DhConfig &result) {
+		updateDhConfig(result);
+	}).fail([=] (const MTP::Error &error) {
+    std::cout << "refreshDhConfig() failed!" << std::endl;
+    std::cout << "type :"
+              << error.type().toUtf8().constData()
+              << std::endl;
+	}).send();
+}
+
 void Instance::refreshDhConfig() {
 	Expects(_currentCall != nullptr);
 
@@ -454,6 +472,10 @@ bytes::const_span Instance::updateDhConfig(
 		} else if (!validRandom(data.vrandom().v)) {
 			return {};
 		}
+    std::cout << "primeBytes: ";
+    for (int i = 0; i < 10; i++)
+      std::cout << int(primeBytes[i]) << ",";
+    std::cout << std::endl;
 		_cachedDhConfig->g = data.vg().v;
 		_cachedDhConfig->p = std::move(primeBytes);
 		_cachedDhConfig->version = data.vversion().v;

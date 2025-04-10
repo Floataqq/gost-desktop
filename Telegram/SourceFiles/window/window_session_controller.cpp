@@ -8,6 +8,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "window/window_session_controller.h"
 
 #include "api/api_text_entities.h"
+#include "boxes/new_secret_chat_box.h"
 #include "boxes/add_contact_box.h"
 #include "boxes/peers/add_bot_to_chat_box.h"
 #include "boxes/peers/edit_peer_info_box.h"
@@ -51,6 +52,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "data/data_peer_values.h"
 #include "data/data_premium_limits.h"
 #include "data/data_web_page.h"
+#include "data/data_peer.h"
 #include "passport/passport_form_controller.h"
 #include "chat_helpers/tabbed_selector.h"
 #include "chat_helpers/emoji_interactions.h"
@@ -2723,6 +2725,10 @@ void SessionController::showNewGroup() {
 
 void SessionController::showNewChannel() {
 	_window->show(Box<GroupInfoBox>(this, GroupInfoBox::Type::Channel));
+}
+
+void SessionController::showNewSecretChat(not_null<PeerData*> peer) {
+  _window->show(Box<NewSecretChatBox>(&session(), peer));
 }
 
 Window::Adaptive &SessionController::adaptive() const {

@@ -1940,6 +1940,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_create_secret_chat_with" = "Create Secret chat with...";
 "lng_secret_chat_single_invitation" = "A new secret chat invitation is waiting.";
 "lng_secret_chat_many_invitations" = "A few new secret chat invitations are waiting.";
+"lng_secret_chat_qenc" = "Use Kuznechik encryption";
 "lng_cipher_aes" = "AES";
 "lng_cipher_kuznechik" = "Kuznechik";
 "lng_secret_chat_fallback" = "Your peer does not seem to support Kuznechik. What shall i do?";

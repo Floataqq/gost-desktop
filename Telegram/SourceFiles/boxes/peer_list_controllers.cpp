@@ -52,6 +52,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "styles/style_dialogs.h"
 #include "styles/style_chat_helpers.h"
 
+#include <iostream>
+
 namespace {
 
 constexpr auto kSortByOnlineThrottle = 3 * crl::time(1000);
@@ -67,6 +69,25 @@ object_ptr<Ui::BoxContent> PrepareSecretChatBox(
   class Controller final : public ContactsBoxController {
 	public:
 		using ContactsBoxController::ContactsBoxController;
+
+
+    void rowClicked(not_null<PeerListRow*> row) override {
+    	const auto peer = row->peer();
+      /*
+    	if (_stories && _stories->handleClick(peer)) {
+    		return;
+    	} else if (const auto window = peer->session().tryResolveWindow()) {
+    		window->showPeerHistory(peer);
+    	}
+      */ 
+      std::cout 
+        << "Creating a secret chat with " 
+        << peer->id.value << "..." << std::endl;
+      if (const auto window = peer->session().tryResolveWindow())
+        window->showNewSecretChat(peer);
+      else
+        std::cout << "Empty peer session window!" << std::endl;
+    }
   
   protected:
 		std::unique_ptr<PeerListRow> createRow(

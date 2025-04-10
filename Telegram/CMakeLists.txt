@@ -195,6 +195,8 @@ PRIVATE
     api/api_websites.h
     api/api_who_reacted.cpp
     api/api_who_reacted.h
+    boxes/new_secret_chat_box.h
+    boxes/new_secret_chat_box.cpp
     boxes/filters/edit_filter_box.cpp
     boxes/filters/edit_filter_box.h
     boxes/filters/edit_filter_chats_list.cpp

@@ -10,6 +10,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "base/timer.h"
 #include "chat_helpers/compose/compose_show.h"
 #include "data/data_chat_participant_status.h"
+#include "data/data_peer.h"
 #include "data/data_report.h"
 #include "dialogs/dialogs_key.h"
 #include "mtproto/sender.h"
@@ -489,6 +490,7 @@ public:
 	void showAddContact();
 	void showNewGroup();
 	void showNewChannel();
+  void showNewSecretChat(not_null<PeerData*> peer);
 
 	void showPassportForm(const Passport::FormRequest &request);
 	void clearPassportForm();

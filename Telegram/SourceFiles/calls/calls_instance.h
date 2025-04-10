@@ -107,10 +107,16 @@ public:
 
 	[[nodiscard]] bool isSharingScreen() const;
 	[[nodiscard]] bool isQuitPrevent();
+  
 
-private:
+  void refreshDhConfig();
+  void refreshDhConfigWithoutCall(not_null<Main::Session*> session);
+
 	class Delegate;
 	friend class Delegate;
+
+	const std::unique_ptr<Delegate> _delegate;
+	const std::unique_ptr<DhConfig> _cachedDhConfig;
 
 	not_null<Media::Audio::Track*> ensureSoundLoaded(const QString &key);
 	void playSoundOnce(const QString &key);
@@ -132,7 +138,6 @@ private:
 		Platform::PermissionType type,
 		Fn<void()> onSuccess);
 
-	void refreshDhConfig();
 	void refreshServerConfig(not_null<Main::Session*> session);
 	bytes::const_span updateDhConfig(const MTPmessages_DhConfig &data);
 
@@ -147,8 +152,6 @@ private:
 		not_null<Main::Session*> session,
 		const MTPUpdate &update);
 
-	const std::unique_ptr<Delegate> _delegate;
-	const std::unique_ptr<DhConfig> _cachedDhConfig;
 
 	crl::time _lastServerConfigUpdateTime = 0;
 	base::weak_ptr<Main::Session> _serverConfigRequestSession;
